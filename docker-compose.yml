@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  database:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+
+  angular:
+    container_name: mean-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+
+  express:
+    container_name: mean-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    command: ["npm", "start"]
+
+
+
